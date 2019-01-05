@@ -1,0 +1,48 @@
+{% extends 'layout.html' %}
+
+{% block content %}
+<h1>아이디어 목록: {{gdiv}}</h1>
+
+
+<a href="{{new}}">새 아이디어 등록하기</a>
+
+<form action="{% url 'list' %}" method="post">
+    <label for="division">분류: </label>
+    <select name="division">
+        <option value="all" />전부</option>
+        {% for division in divisions %}
+        <option value="{{ division }}" />{{ division }}</option>
+        {% endfor %}
+    </select>
+    <label for="image"> 그림 존재 : </label>
+    <select name="image">
+        <option value="all" />전부</option>
+        <option value="y" />y</option>
+        <option value="n" />n</option>
+    </select>
+    <label for="pub"> 이미지 올림: : </label>
+    <select name="pub">
+        <option value="all" />전부</option>
+        <option value="y" />y</option>
+        <option value="n" />n</option>
+    </select>
+    <input type="submit" name="featured" value="Filter" />
+</form>    
+<ul>
+{% for idea in photos %}
+<li>
+    <a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}}),  
+    {% if idea.image %} 이미지 있음, {% endif %}
+    {% if idea.pub_date %} 
+        {{idea.pub_date}} 발행
+    {% endif %}
+    </a>  :  
+    <a href="{{ idea.get_edit_url }}">편집하기</a>
+
+</li>
+{% empty %}
+    <li>게시한 사진이 없습니다.</li>
+{% endfor %}
+</ul>
+
+{% endblock %}
