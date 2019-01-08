@@ -1,48 +1,55 @@
-{% extends 'layout.html' %}
+{% extends 'index.html' %}
 
 {% block content %}
-<h1>아이디어 목록: {{gdiv}}</h1>
 
 
-<a href="{{new}}">새 아이디어 등록하기</a>
+<div class="well">
+    <h4>
+    <a href="{{new}}">새 아이디어 등록하기</a>
+    <br></h4>
+    </h5>
+    <form action="{% url 'list' %}" method="post">
+        {% csrf_token %}
+        <label for="division">분류: </label>
+        <select name="division">
+            <option value="" />전부</option>
+            {% for division in divisions %}
+            <option value="{{ division }}" />{{ division }}</option>
+            {% endfor %}
+        </select><br>
+        <label for="image"> 그림 존재 : </label>
+        <select name="image">
+            <option value="" />전부</option>
+            <option value="y" />y</option>
+            <option value="n" />n</option>
+        </select><br>
+        <label for="pub"> 이미지 올림: : </label>
+        <select name="pub">
+            <option value="" />전부</option>
+            <option value="y" />y</option>
+            <option value="n" />n</option>
+        </select><br>
+        <input type="submit" name="featured" value="Filter" />
+    </form>    
+    </h5>
+    <br>
+    <ul>
+        {% for idea in photos %}
+        <li>
 
-<form action="{% url 'list' %}" method="post">
-    <label for="division">분류: </label>
-    <select name="division">
-        <option value="all" />전부</option>
-        {% for division in divisions %}
-        <option value="{{ division }}" />{{ division }}</option>
+        <a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}}),  
+            {% if idea.image %} 이미지 있음, {% endif %}
+            {% if idea.pub_date %} 
+            {{idea.pub_date}} 발행
+            {% endif %}
+        </a>  :  
+        <a href="{{ idea.get_edit_url }}">편집하기</a>
+
+        </li>
+        {% empty %}
+        <li>게시한 사진이 없습니다.</li>
         {% endfor %}
-    </select>
-    <label for="image"> 그림 존재 : </label>
-    <select name="image">
-        <option value="all" />전부</option>
-        <option value="y" />y</option>
-        <option value="n" />n</option>
-    </select>
-    <label for="pub"> 이미지 올림: : </label>
-    <select name="pub">
-        <option value="all" />전부</option>
-        <option value="y" />y</option>
-        <option value="n" />n</option>
-    </select>
-    <input type="submit" name="featured" value="Filter" />
-</form>    
-<ul>
-{% for idea in photos %}
-<li>
-    <a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}}),  
-    {% if idea.image %} 이미지 있음, {% endif %}
-    {% if idea.pub_date %} 
-        {{idea.pub_date}} 발행
-    {% endif %}
-    </a>  :  
-    <a href="{{ idea.get_edit_url }}">편집하기</a>
+    </ul>
 
-</li>
-{% empty %}
-    <li>게시한 사진이 없습니다.</li>
-{% endfor %}
-</ul>
-
+</div>
 {% endblock %}

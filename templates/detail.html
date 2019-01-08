@@ -1,0 +1,14 @@
+{% extends 'index.html' %}
+
+<div class="well">
+{% block content %}
+<h4>
+    주제: {{ idea.subject }}<br>
+    구분: {{ idea.division.division }}<br>
+    수정일: {{ idea.create_at }}<br>
+    <img src="{{ img_url }}" style="max-width: 100%; height: auto;"/><br>
+    발행일: {{ idea.pub_date }}<br>
+    <a href="{{ idea.get_edit_url }}">편집하기</a>
+</h5>
+</div>
+{% endblock %}

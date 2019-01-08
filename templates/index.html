@@ -1,0 +1,54 @@
+{% load staticfiles %}
+
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="utf-8">
+    <title>{% block page_title %}야매: 야미 매니저:{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- START 필요 스타일 -->
+    <link rel="stylesheet" href="{% static 'cornerstone/bootstrap/css/bootstrap.min.css' %}"/>
+    <link rel="stylesheet" href="{% static 'cornerstone/theme-white/cornerstone.css' %}"/>
+    <link rel="stylesheet" href="{% static 'stylesheets/main.css' %}"/>
+    <!-- //END 필요 스타일 -->
+</head>
+<body>
+
+<div id="pages" class="container">
+<header>
+    <nav class="navbar navbar-default navbar-fixed-top"
+        role="navigation">
+    <div class="navbar-header">
+    <a class="navbar-brand" href="#">야매: 야미 매니저</a>
+    </div>
+    </nav>
+</header>
+
+<div class="content">
+    <h2>{{page_title}}</h2>
+{% block content %}{% endblock %}
+</div>
+
+<footer>
+    <div class="navbar-mobile btn-group
+        btn-group-justified navbar-fixed-bottom">
+    <a href="/" class="btn btn-default">
+    <span class="glyphicon glyphicon-th-list"></span>
+    <span class="text">list</span>
+    </a>
+    <a href="/new" class="btn btn-default">
+    <span class="glyphicon glyphicon-edit"></span>
+    <span class="text">new idea</span>
+    </a>
+    <a href="/calendar" class="btn btn-default">
+    <span class="glyphicon glyphicon-calendar"></span>
+    <span class="text">calendar</span>
+    </a>
+    </div>
+</footer>
+</div>
+
+
+</body>
+</html>

@@ -1,5 +1,6 @@
-{% extends 'layout.html' %}
+{% extends 'index.html' %}
 
+<div class="well">
 {% block content %}
 <form
     method="POST"
@@ -7,11 +8,14 @@
     enctype="multipart/form-data"
 >
     {% csrf_token %}
-    {{ form.as_p }}
+    <h5>
+        {{ form.as_p }}
+    </h5>
 
     <p>
         <button type="submit">저장</button>
     </p>
 </form>
+</div>
 
 {% endblock %}

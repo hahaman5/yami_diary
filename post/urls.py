@@ -8,5 +8,6 @@ urlpatterns = [
     path('<int:idea_id>/', views.detail, name='detail'),
     path('<int:idea_id>/edit', views.edit, name='edit'),
     path('calendar/<int:year>/<int:month>', views.calendar, name='calendar'),
+    path('calendar', views.calendar_today, name='calendar_today'),
     path('list', views.list, name='list'),
 ]

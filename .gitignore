@@ -1,0 +1,6 @@
+uploads
+__pycache__/
+*.pyc
+*.pyo
+db.sqlite3
+.DS_Store
