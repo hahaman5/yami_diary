@@ -33,23 +33,39 @@
     </form>    
     </h5>
     <br>
-    <ul>
-        {% for idea in photos %}
-        <li>
-
-        <a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}}),  
-            {% if idea.image %} 이미지 있음, {% endif %}
-            {% if idea.pub_date %} 
-            {{idea.pub_date}} 발행
-            {% endif %}
-        </a>  :  
-        <a href="{{ idea.get_edit_url }}">편집하기</a>
-
-        </li>
+        <table id="idea_list" class="table">
+            <thead>
+                <tr>
+                    <th style="width: 55%" class='text-center'>주제</th>
+                    <th style="width: 15%" class='text-center'>image</th>
+                    <th style="width: 30%" class='text-center'>uploaded</th>
+                </tr>
+            </thead>
+            <tbody>
+            {% for idea in photos %}
+            <tr>
+                <td><a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}})</a></td>
+                <td class="text-center">
+                    {% if idea.image %}     
+                    <span class="glyphicon glyphicon-picture"></span>
+ 
+                    {% endif %}
+                </td>
+                <td>
+                {% if idea.pub_date %} 
+                {{idea.pub_date|date:"Y/m/d"}}
+                {% endif %}
+                </td>
+            
+                <!--
+                <td><a href="{{ idea.get_edit_url }}">편집</a></td>
+                --!>
+            </tr>
         {% empty %}
         <li>게시한 사진이 없습니다.</li>
         {% endfor %}
-    </ul>
+            </tbody>
+        </table>
 
 </div>
 {% endblock %}
