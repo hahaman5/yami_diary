@@ -89,7 +89,7 @@ def calendar_today(request):
 
 def list(request):
 
-    photos = Idea.objects.order_by('-created_at')
+    photos = Idea.objects.order_by('-pub_date','image', '-created_at')
     get_div = ''
     if request.method == "POST":
         get_div = format(request.POST["division"])
@@ -123,3 +123,17 @@ def list(request):
     }
 
     return render(request, 'list.html', ctx)
+
+def simple_upload(request):
+    if request.method == 'POST':
+        idea = Idea()
+        dataset = Dataset()
+        new_persons = request.FILES['myfile']
+
+        imported_data = dataset.load(new_persons.read())
+        result = person_resource.import_data(dataset, dry_run=True)  # Test the data import
+
+        if not result.has_errors():
+            person_resource.import_data(dataset, dry_run=False)  # Actually import now
+
+    return render(request, 'core/simple_upload.html')
