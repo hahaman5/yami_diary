@@ -8,6 +8,7 @@
     <a href="{{new}}">새 아이디어 등록하기</a>
     <br></h4>
     </h5>
+    <!--
     <form action="{% url 'list' %}" method="post">
         {% csrf_token %}
         <label for="division">분류: </label>
@@ -31,29 +32,39 @@
         </select><br>
         <input type="submit" name="featured" value="Filter" />
     </form>    
-    </h5>
+    --!>
+    </h6>
     <br>
         <table id="idea_list" class="table">
             <thead>
                 <tr>
-                    <th style="width: 55%" class='text-center'>주제</th>
-                    <th style="width: 15%" class='text-center'>image</th>
+                    <th style="width: 50%" class='text-center'>주제</th>
+                    <th style="width: 20%" class='text-center'>img</th>
                     <th style="width: 30%" class='text-center'>uploaded</th>
                 </tr>
             </thead>
             <tbody>
             {% for idea in photos %}
             <tr>
-                <td><a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}})</a></td>
+                <td>
+                    <a href="{{ idea.get_absolute_url }}">{{idea.subject}}({{idea.get_div_name}})</a>
+                    <input type="hidden" value="{{idea.get_div_name}}" id="h_tag">
+                </td>
                 <td class="text-center">
                     {% if idea.image %}     
                     <span class="glyphicon glyphicon-picture"></span>
+                    <input type="hidden" value="있음" id="h_tag">
+                    {% else %}
+                    <input type="hidden" value="없음" id="h_tag">
  
                     {% endif %}
                 </td>
                 <td>
                 {% if idea.pub_date %} 
                 {{idea.pub_date|date:"Y/m/d"}}
+                    <input type="hidden" value="올림" id="h_tag">
+                {% else %}
+                    <input type="hidden" value="안올림" id="h_tag">
                 {% endif %}
                 </td>
             
@@ -68,4 +79,34 @@
         </table>
 
 </div>
+<script>
+MyOptions = {
+  valueCallback:function() {
+
+    h_tag = $(this).find('input').val();
+    return h_tag;
+  },
+  textCallback:function() {
+    h_tag = $(this).find('input').val();
+    return h_tag;
+    //return $.trim($(this).text());
+  },
+  sortOptCallback: function(a, b) {
+    return a.text.toLowerCase() > b.text.toLowerCase();
+  },
+  afterFilter: null,
+  afterBuild: null,
+  transition: {
+    hide:$.fn.hide,
+    show:$.fn.show,
+    options: []
+  },
+  emptyText:'--Empty--',
+  sortOpt:true,
+  debug:false,
+  minOptions:2
+}
+$('#idea_list').ddTableFilter(MyOptions);
+
+</script>
 {% endblock %}
