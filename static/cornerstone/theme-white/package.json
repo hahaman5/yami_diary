@@ -4,7 +4,7 @@
 	"description": "Cornerstone white theme",
 	"jam": {
 		"dependencies": {
-			"bootstrap": "3.0.0"
+			"bootstrap": "3.3.7"
 		}
 	}
 }
