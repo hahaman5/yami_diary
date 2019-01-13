@@ -9,11 +9,12 @@ from .models import Idea,Division
 class IdeaForm(forms.ModelForm):
     class Meta:
         model = Idea
-        fields = ('subject','division','image', 'pub_date', )
+        fields = ('subject','division','image', 'pub_date', 'memo',)
 
     def __init__(self, *args, **kwargs):
         super(IdeaForm, self).__init__(*args, **kwargs)
         self.fields['pub_date'].widget = forms.widgets.SelectDateWidget()
+        self.fields['memo'].widget = forms.Textarea()
 
 class FilterForm(forms.Form):
     divs = forms.CharField(label='분류', widget=forms.Select())

@@ -14,6 +14,7 @@ class Idea(models.Model):
     image = models.ImageField(null=True,upload_to='',blank=True)
     created_at = models.DateTimeField(auto_now_add=True)
     pub_date = models.DateField('인스타 발행일',null=True,blank=True,unique=True)
+    memo = models.TextField('메모', max_length=500, blank=True)
     def get_absolute_url(self):
         url = reverse_lazy('detail', kwargs={'idea_id': self.pk})
         return url
