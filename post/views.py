@@ -16,7 +16,10 @@ def detail(request, idea_id):
         idea = Idea.objects.get(pk=idea_id);
     except Idea.DoesNotExist:
         return render(request, 'no_image.html')
+
+    return _detail(request, idea)
     
+def _detail(request, idea):
     try:
         img_url = idea.image.url
     except ValueError:
@@ -40,6 +43,14 @@ def detail(request, idea_id):
     }
     return render(request, 'detail.html', ctx)
     #return HttpResponse('\n'.join(messages))
+
+def detail_date(request, year, month, day):
+    try:
+        idea = Idea.objects.get(pub_date=datetime.date(year,month,day));
+    except Idea.DoesNotExist:
+        return render(request, 'no_image.html')
+
+    return _detail(request, idea)
 
 def new(request):
 
