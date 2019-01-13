@@ -26,3 +26,5 @@ class Idea(models.Model):
     def get_div_name(self):
         return format(self.division.division)
 
+    def __str__(self):
+        return self.subject
