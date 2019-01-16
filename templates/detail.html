@@ -9,10 +9,11 @@
     <img src="{{ img_url }}" style="max-width: 100%; height: auto;"/><br>
     발행일: {{ idea.pub_date }}<br><br>
     <div align="center">
-        <textarea cols="30" rows="10" readonly="readonly" onclick="this.select()" onfocus="this.select()" style="width:90%"> {{ idea.memo  }} </textarea><br>
+        <textarea id="memo" cols="30" rows="10" readonly="readonly" onclick="this.select()" onfocus="this.select()" style="width:90%"> {{ idea.memo  }} </textarea><br>
         <br>
         <a href="{{ idea.get_edit_url }}">편집하기</a>
     </div>
 </h5>
 </div>
+
 {% endblock %}

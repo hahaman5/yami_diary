@@ -100,7 +100,7 @@ def calendar_today(request):
 
 def list(request):
 
-    photos = Idea.objects.order_by('-pub_date','image', '-created_at')
+    photos = Idea.objects.order_by('-pub_date','-image', '-created_at')
     get_div = ''
     if request.method == "POST":
         get_div = format(request.POST["division"])
