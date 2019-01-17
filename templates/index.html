@@ -4,7 +4,7 @@
 <html lang="ko">
 <head>
     <meta charset="utf-8">
-    <title>{% block page_title %}야매: 야미 매니저:{% endblock %}</title>
+    <title>{% block page_title %}야매: {{page_title}}{% endblock %}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
 
     <link rel="apple-touch-icon" sizes="180x180" "{% static 'apple-touch-icon.png' %}">
@@ -59,6 +59,10 @@
     <a href="/calendar" class="btn btn-default">
     <span class="glyphicon glyphicon-calendar"></span>
     <span class="text">calendar</span>
+    </a>
+    <a href="/random" class="btn btn-default">
+    <span class="glyphicon glyphicon-random"></span>
+    <span class="text">random</span>
     </a>
     </div>
 </footer>

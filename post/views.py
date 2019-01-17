@@ -2,11 +2,39 @@ from django.shortcuts import render
 
 # Create your views here.
 from django.http import HttpResponse
-from .models import Idea,Division
+from .models import Idea,Division,TodayYami
 from .forms import IdeaForm,FilterForm
 from django.shortcuts import redirect,get_object_or_404
 from django.urls import reverse_lazy
 import datetime
+import random
+import logging
+
+logger = logging.getLogger(__name__)
+
+def get_today_yami():
+    try:
+        now = datetime.date.today()
+        today = TodayYami.objects.get(picked_at=now)
+        #return today's yami if it exists
+        return today.yami
+    except TodayYami.DoesNotExist:
+        photos = Idea.objects.all()
+        #if no today's yami, let's pick one!
+        photos = photos.exclude(image__exact='')
+        idea = random.choice(photos)
+        today = TodayYami(
+               yami = idea 
+               )
+        today.save()
+        return idea
+
+def get_random_idea():
+        photos = Idea.objects.all()
+        #if no today's yami, let's pick one!
+        photos = photos.filter(image__exact='')
+        idea = random.choice(photos)
+        return idea
 
 def index(request):
     return HttpResponse("Hello, world. You're at the polls index.")
@@ -39,7 +67,7 @@ def _detail(request, idea):
     ctx = {
         'idea': idea,
         'img_url': img_url,
-        'page_title': "아이디어 디테일",
+        'page_title': idea.subject,
     }
     return render(request, 'detail.html', ctx)
     #return HttpResponse('\n'.join(messages))
@@ -50,6 +78,10 @@ def detail_date(request, year, month, day):
     except Idea.DoesNotExist:
         return render(request, 'no_image.html')
 
+    return _detail(request, idea)
+
+def detail_random(request):
+    idea = get_random_idea()
     return _detail(request, idea)
 
 def new(request):
@@ -127,6 +159,7 @@ def list(request):
     ctx = {
         'page_title': "아이디어 목록",
         'photos': photos,
+        'today_yami': get_today_yami().image.url,
         'new' : reverse_lazy('new'),
         'divisions' : Division.objects.order_by('pk'),
         'gdiv' : get_div,

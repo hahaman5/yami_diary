@@ -11,4 +11,5 @@ urlpatterns = [
     path('calendar/<int:year>/<int:month>', views.calendar, name='calendar'),
     path('calendar', views.calendar_today, name='calendar_today'),
     path('list', views.list, name='list'),
+    path('random', views.detail_random, name='detail_random'),
 ]

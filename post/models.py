@@ -28,3 +28,12 @@ class Idea(models.Model):
 
     def __str__(self):
         return self.subject
+
+class TodayYami(models.Model):
+    picked_at = models.DateField(auto_now_add=True, primary_key=True)
+    yami = models.ForeignKey(Idea, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return format(self.picked_at) + ": " + self.yami.subject
+
+
