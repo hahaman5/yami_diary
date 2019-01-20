@@ -10,10 +10,11 @@ class IdeaForm(forms.ModelForm):
     class Meta:
         model = Idea
         fields = ('subject','division','image', 'pub_date', 'memo',)
+        widgets = {'pub_date': forms.DateInput(attrs={'id': 'datetimepicker_pub'})}
 
     def __init__(self, *args, **kwargs):
         super(IdeaForm, self).__init__(*args, **kwargs)
-        self.fields['pub_date'].widget = forms.widgets.SelectDateWidget()
+        #self.fields['pub_date'].widget = forms.widgets.SelectDateWidget()
         self.fields['memo'].widget = forms.Textarea()
 
 class FilterForm(forms.Form):

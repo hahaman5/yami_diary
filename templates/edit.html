@@ -6,14 +6,23 @@
     method="POST"
     action=""
     enctype="multipart/form-data"
->
-    {% csrf_token %}
-    <h5>
-        {{ form.as_p }}
-    </h5>
 
-    <p>
-        <button type="submit">저장</button>
+    {% csrf_token %}
+    <div style="position: relative">
+        <h5>
+            {{ form.as_p }}
+        </h5>
+        <script type="text/javascript">
+$(function () {
+        $('#datetimepicker_pub').datetimepicker({
+                locale: 'ko',
+format: 'YYYY-MM-DD'
+});
+        });
+        </script>
+        <p>
+    </div>
+    <button type="submit">저장</button>
     </p>
 </form>
 </div>
