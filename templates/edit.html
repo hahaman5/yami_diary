@@ -7,9 +7,9 @@
     action=""
     enctype="multipart/form-data"
 
-    {% csrf_token %}
     <div style="position: relative">
         <h5>
+    {% csrf_token %}
             {{ form.as_p }}
         </h5>
         <script type="text/javascript">
